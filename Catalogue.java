@@ -13,6 +13,12 @@ public class Catalogue {
         }
         return false;
     }
+    public Location addLoc(Client a , Scooter b , String c, String d){
+        return new Location(a, b, c, d);
+    }
+    public Client addClient(int a, String b , String c){
+        return new Client(a, b, c);
+    }
     public void LouerScooter() {
         System.out.println("=========Louer un scooter=========");
         Scanner scanner = new Scanner(System.in);
@@ -23,7 +29,16 @@ public class Catalogue {
         } else{
             if (!catalogue[id].getDisponibilite()) {
                 System.out.println("Scooter non indisponible");}
-            else {System.out.println("Scooter disponible");}
+            else {
+                System.out.println("Scooter disponible");
+                System.out.println("Votre nom?");
+                String nom = scanner.nextLine();
+                System.out.println("Votre prenom?");
+                String prenom = scanner.nextLine();
+                System.out.println("Votre télephone?");
+                int numero = scanner.nextInt();
+
+            }
         }
     }
 }

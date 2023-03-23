@@ -32,8 +32,12 @@ public class Scooter {
     public boolean getDisponibilite(){
         return disponibilite;
     }
-
-
+    public void setFalse(){
+        this.disponibilite = false;
+    }
+    public void setTrue(){
+        this.disponibilite = true;
+    }
     public boolean getEtatVehicule(){
         return etatVehicule;
     }

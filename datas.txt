@@ -1,0 +1,4 @@
+BMW CE 04 , 60 , 300 , true , true
+Piaggio Vespa , 60 , 253 , true , true
+Niu NQi GTS , 60 , 435 , true , true
+Peugeot e-Ludix , 60 , 122 , true , true

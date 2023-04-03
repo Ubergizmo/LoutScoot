@@ -1,7 +1,12 @@
-package Louscoot;
-import java.util.Scanner;
+package Model.model;
+
+
+import java.util.*;
+
 
 public class Scooter {
+
+    private static int idCounter = 0;
     private int id;
     private String model;
     private int rentPrice;
@@ -9,14 +14,16 @@ public class Scooter {
     private boolean disponibilite;
     private boolean etatVehicule;
 
-    public Scooter(int a, String b , int c , int d , boolean e, boolean f){
-        this.id = a;
-        this.model = b;
+    public Scooter( String model, int c, int d, boolean e, boolean f) {
+        this.id = ++idCounter;
+        this.model = model;
         this.rentPrice = c;
         this.kilometre = d;
-        this.disponibilite =  e;
+        this.disponibilite = e;
         this.etatVehicule = f;
     }
+
+
     public int getId(){
         return id;
     }
@@ -41,6 +48,5 @@ public class Scooter {
     public boolean getEtatVehicule(){
         return etatVehicule;
     }
-
 
 }

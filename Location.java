@@ -1,30 +1,34 @@
-package Louscoot;
+package Model.model;
+import java.net.http.HttpClient;
+import java.util.*;
+
 
 public class Location {
-    private Client client;
-    private Scooter scooter;
-    private String dateDebut;
-    private String dateFin;
-    private boolean dateLimite;
-    private int n;
 
-    public Location(Client a , Scooter b, String c, String d){
-        client = a;
-        scooter = b;
+    public Date dateDebut;
+    private Date dateFin;
+    private boolean dateLimite;
+    private Client client;
+
+
+
+    public Location( Date c, Date d){
         dateDebut = c ;
         dateFin = d;
 
     }
-    public Client getClient(){
-        return client;
-    }
-    public Scooter getScooter(){
-        return scooter;
-    }
-    public String getDateDebut(){
+    public Date getDateDebut(){
         return dateDebut;
     }
-    public String getDateFin(){
+    public Date getDateFin(){
         return dateFin;
     }
+
+    public Date dateD(Date dateDebut){
+        return dateDebut;
+    }
+    public Date dateF(Date dateFin){
+        return dateFin;
+    }
+
 }

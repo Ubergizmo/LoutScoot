@@ -8,37 +8,25 @@ import java.util.*;
 public class Main  {
 
     public static void main(String[] args) throws IOException {
-        String path = "D:\\L2\\Poo\\Model\\model\\datas.txt";
-        Scooter [] parc = new Scooter[3];
-        Parc test = new Parc(3);
+        String path = "D:\\L2\\Poo\\Model\\model\\data.csv";
+        Parc parc = new Parc();
+        String line = "";
         try {
-            File file = new File(path);
-            Scanner scanner = new Scanner(file);
+            BufferedReader br = new BufferedReader(new FileReader(path));
             int i = 0;
-            while (scanner.hasNextLine() && i < 3) {
-                String line = scanner.nextLine();
-                String[] data = line.split(",");
-                String model = data[0];
-                int rentPrice = Integer.parseInt(data[1]);
-                int kilometre = Integer.parseInt(data[2]);
-                boolean disponible = Boolean.parseBoolean(data[3]);
-                boolean etatVehicule = Boolean.parseBoolean(data[4]);
-
-                Scooter scooter = new Scooter( model, rentPrice, kilometre, disponible, etatVehicule);
-                parc[i] = scooter;
+            while((line = br.readLine()) != null && i < 3) {
+                String[] values = line.split(";");
+                String model = values[0];
+                int rentPrice = Integer.parseInt(values[1]);
+                int kilometre = Integer.parseInt(values[2]);
+                boolean disponible = Boolean.parseBoolean(values[3]);
+                boolean etatVehicule = Boolean.parseBoolean(values[4]);
+                Scooter scooter = new Scooter(model, rentPrice, kilometre, disponible, etatVehicule);
+                parc.catalogue[i] = scooter;
                 i++;
-                System.out.println("Fichier modifié avec succès.");
             }
-
-            scanner.close();
-            //String newData = data.replaceAll("Caleb", "Kyky");
-            //System.out.println(newData);
-            //PrintWriter writer = new PrintWriter(file);
-            //writer.print(newData);
-            //writer.close();
-
-            System.out.println("Fichier modifié avec succès.");
-        }catch (Exception e){ System.out.println(e);}
+            System.out.println("Bienvenu sur LouScoot");
+        }catch (FileNotFoundException e){ System.out.println("Nous présentons actuellement un soucis.");}
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
         boolean isRunning = true;
@@ -58,7 +46,7 @@ public class Main  {
             switch (choice) {
                 case 1:
                     System.out.println("Option 1 sélectionnée : louer un scooter");
-                    test.LouerScooter1();
+                    parc.LouerScooter1();
                     break;
                 case 2:
                     retourScooter();
@@ -67,7 +55,7 @@ public class Main  {
                     etatScooter();
                     break;
                 case 4:
-                    afficherParc(parc);
+                    parc.afficherParc();
                     break;
                 case 5:
                     saisirParcScooters();
@@ -75,6 +63,7 @@ public class Main  {
                 case 6:
                     isRunning = false;
                     System.out.println("Programme terminé.");
+                    
                     break;
                 default:
                     System.out.println("Option invalide.");
@@ -95,12 +84,12 @@ public class Main  {
         System.out.println("Option 3 sélectionnée : afficher l'état d'un scooter");
     }
 
-    public static void afficherParc(Scooter [] e){
-        for(int i = 0; i<e.length;i++){
-            System.out.println(e[i].getId()+","+e[i].getModel()+","+e[i].getRentPrice()
-                    +","+e[i].getKilometre()+","+e[i].getDisponibilite());
+    /*public static void afficherParc(Parc e){
+        for(int i = 0; i<e.catalogue.length;i++){
+            System.out.println(e.catalogue[i].getId()+","+e.catalogue[i].getModel()+","+e.catalogue[i].getRentPrice()
+                    +","+e.catalogue[i].getKilometre()+","+e.catalogue[i].getDisponibilite());
         }
-    }
+    }*/
 
     public static void saisirParcScooters() {
         // Logique pour saisir le parc des scooters
@@ -108,14 +97,14 @@ public class Main  {
     }
 
     /**
-     * 
+     *
      */
     public void header() {
         // TODO implement here
     }
 
     /**
-     * 
+     *
      */
     public void createScooter() {
         // TODO implement here

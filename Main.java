@@ -14,7 +14,7 @@ public class Main  {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             int i = 0;
-            while((line = br.readLine()) != null && i < 3) {
+            while((line = br.readLine()) != null && i < 3 ) {
                 String[] values = line.split(";");
                 String model = values[0];
                 int rentPrice = Integer.parseInt(values[1]);
@@ -52,7 +52,7 @@ public class Main  {
                     retourScooter();
                     break;
                 case 3:
-                    etatScooter();
+                    parc.etatScooter();
                     break;
                 case 4:
                     parc.afficherParc();
@@ -62,8 +62,8 @@ public class Main  {
                     break;
                 case 6:
                     isRunning = false;
+                    parc.save();
                     System.out.println("Programme terminé.");
-                    
                     break;
                 default:
                     System.out.println("Option invalide.");
@@ -83,31 +83,11 @@ public class Main  {
         // Logique pour afficher l'état d'un scooter
         System.out.println("Option 3 sélectionnée : afficher l'état d'un scooter");
     }
-
-    /*public static void afficherParc(Parc e){
-        for(int i = 0; i<e.catalogue.length;i++){
-            System.out.println(e.catalogue[i].getId()+","+e.catalogue[i].getModel()+","+e.catalogue[i].getRentPrice()
-                    +","+e.catalogue[i].getKilometre()+","+e.catalogue[i].getDisponibilite());
-        }
-    }*/
-
     public static void saisirParcScooters() {
         // Logique pour saisir le parc des scooters
         System.out.println("Option 5 sélectionnée : saisir le parc des scooters");
     }
 
-    /**
-     *
-     */
-    public void header() {
-        // TODO implement here
-    }
 
-    /**
-     *
-     */
-    public void createScooter() {
-        // TODO implement here
-    }
 
 }

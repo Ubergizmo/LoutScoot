@@ -1,4 +1,5 @@
 package Model.model;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -6,13 +7,8 @@ import java.util.*;
  */
 public class Parc {
 
-    private int capacité;
-    Scooter[] catalogue;
+    Scooter[] catalogue= new Scooter[4];
 
-public Parc(int n ){
-    Scooter[] catalogue = new Scooter[capacité];
-
-}
     public Client addClient(String b, String c) {
         return new Client(b, c);
     }
@@ -26,14 +22,13 @@ public Parc(int n ){
         return false;
     }
 
-    /*public void afficherParc(){
-    for(int i = 0; i<catalogue.length;i++){
-        System.out.println(catalogue[i].getId()+","+catalogue[i].getModel()+","+catalogue[i].getRentPrice()
-        +","+catalogue[i].getKilometre()+","+catalogue[i].getDisponibilite());
+    public void afficherParc(){
+    for(int i = 0; i<this.catalogue.length;i++){
+        System.out.println(this.catalogue[i].getId()+","+this.catalogue[i].getModel()+","+this.catalogue[i].getRentPrice()
+        +","+this.catalogue[i].getKilometre()+" ," + this.catalogue[i].getDisponibilite());
     }
-    }*/
-
-    public Location reservation(int id) {
+    }
+    public Location reservation(int id){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Votre nom?");
         String nom = scanner.nextLine();
@@ -50,8 +45,20 @@ public Parc(int n ){
         return null;
     }
 
-    public void LouerScooter1() {
-        System.out.println("=========Louer un scooter=========");
+    public void etatScooter(){
+        System.out.println("|=========Etat d'un scooter=========|");
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("Numéro d'identification du scooter : ");
+        int id = scanner.nextInt();
+        if (!checkId(id)){
+            System.out.println("Scooter non existant");
+        } else{
+            System.out.println(this.catalogue[id].getId()+","+this.catalogue[id].getModel()+
+                    ","+this.catalogue[id].getKilometre()+" ," + this.catalogue[id].getDisponibilite());
+            }
+        }
+    public void LouerScooter1()  {
+        System.out.println("|=========Louer un scooter=========|");
         Scanner scanner = new Scanner(System.in);
         System.out.printf("Numéro d'identification du scooter : ");
         int id = scanner.nextInt();
@@ -67,5 +74,25 @@ public Parc(int n ){
                 catalogue[id].setFalse();
             }
         }
+    }
+
+    public void save() throws IOException {
+        String path = "D:\\L2\\Poo\\Model\\model\\data.csv";
+        String line = "";
+        try {
+            FileWriter writer = new FileWriter(path);
+
+            for (int i = 0; i < this.catalogue.length; i++) {
+                writer.write(this.catalogue[i].getModel() + ";");
+                writer.write(this.catalogue[i].getRentPrice() + ";");
+                writer.write(this.catalogue[i].getKilometre() + ";");
+                writer.write(this.catalogue[i].getDisponibilite() + ";");
+                writer.write(this.catalogue[i].getEtatVehicule() + "\n");
+            }
+
+            writer.close();
+
+            System.out.println("Sauvegarde réussir");
+        }catch (FileNotFoundException e){ System.out.println("Sauvegarde échoué.");}
     }
 }

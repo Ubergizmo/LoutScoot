@@ -36,7 +36,6 @@ public class Parc {
         String prenom = scanner.nextLine();
         System.out.println("Votre télephone?");
         int numero = scanner.nextInt();
-        
         Client x = addClient(nom, prenom);
         System.out.println("Client enregistré!");
         System.out.println("Date de réservation");

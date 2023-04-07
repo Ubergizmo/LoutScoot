@@ -27,6 +27,7 @@ public class Scooter {
     public int getId(){
         return id;
     }
+
     public String getModel(){
         return model;
     }
@@ -39,6 +40,14 @@ public class Scooter {
     public boolean getDisponibilite(){
         return disponibilite;
     }
+    public String printDisponibilite(){
+        if (this.getDisponibilite()) {
+            return "Disponible à la location";
+        }
+        else {
+            return "Indisponible à la location";
+        }
+    }
     public void setFalse(){
         this.disponibilite = false;
     }
@@ -48,5 +57,7 @@ public class Scooter {
     public boolean getEtatVehicule(){
         return etatVehicule;
     }
-
+    public void setKilometre(int kilometre) {
+        this.kilometre = kilometre;
+    }
 }

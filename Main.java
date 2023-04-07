@@ -14,8 +14,8 @@ public class Main  {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             int i = 0;
-            while((line = br.readLine()) != null && i < 3 ) {
-                String[] values = line.split(";");
+            while((line = br.readLine()) != null && i < 4) {
+                String[] values = line.split(",");
                 String model = values[0];
                 int rentPrice = Integer.parseInt(values[1]);
                 int kilometre = Integer.parseInt(values[2]);
@@ -25,7 +25,7 @@ public class Main  {
                 parc.catalogue[i] = scooter;
                 i++;
             }
-            System.out.println("Bienvenu sur LouScoot");
+            System.out.println("Bienvenue sur LouScoot");
         }catch (FileNotFoundException e){ System.out.println("Nous présentons actuellement un soucis.");}
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
@@ -45,11 +45,11 @@ public class Main  {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Option 1 sélectionnée : louer un scooter");
-                    parc.LouerScooter1();
+
+                    parc.LouerScooter();
                     break;
                 case 2:
-                    retourScooter();
+                    parc.retourScooter();
                     break;
                 case 3:
                     parc.etatScooter();
@@ -79,10 +79,7 @@ public class Main  {
         System.out.println("Option 2 sélectionnée : retourner un scooter");
     }
 
-    public static void etatScooter() {
-        // Logique pour afficher l'état d'un scooter
-        System.out.println("Option 3 sélectionnée : afficher l'état d'un scooter");
-    }
+
     public static void saisirParcScooters() {
         // Logique pour saisir le parc des scooters
         System.out.println("Option 5 sélectionnée : saisir le parc des scooters");

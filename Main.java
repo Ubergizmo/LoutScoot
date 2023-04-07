@@ -58,7 +58,7 @@ public class Main  {
                     parc.afficherParc();
                     break;
                 case 5:
-                    saisirParcScooters();
+                    parc.saisirParcScooters();
                     break;
                 case 6:
                     isRunning = false;

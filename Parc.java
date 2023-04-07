@@ -22,9 +22,10 @@ public class Parc {
     }
 
     public void afficherParc(){
+        System.out.println("|=========Affichage de l'état du parc de scooters=========|");
     for(int i = 0; i<this.catalogue.length;i++){
-        System.out.println(this.catalogue[i].getId()+","+this.catalogue[i].getModel()+","+this.catalogue[i].getRentPrice()
-        +","+this.catalogue[i].getKilometre()+" ," + this.catalogue[i].printDisponibilite());
+        System.out.println(this.catalogue[i].getId()+"-"+this.catalogue[i].getModel()+" : "+this.catalogue[i].getRentPrice()
+        +"€, "+this.catalogue[i].getKilometre()+"km, " + this.catalogue[i].printDisponibilite() +", "+this.catalogue[i].printEtat());
     }
     }
     public Location reservation(int id){
@@ -35,9 +36,10 @@ public class Parc {
         String prenom = scanner.nextLine();
         System.out.println("Votre télephone?");
         int numero = scanner.nextInt();
+        
         Client x = addClient(nom, prenom);
         System.out.println("Client enregistré!");
-        System.out.println("Date de réservation?");
+        System.out.println("Date de réservation");
         scanner.nextLine(); // pour consommer le caractère '\n' laissé par nextInt()
         System.out.println("Date de début de réservation (format JJ/MM/AAAA) ?");
         String dateDebutString = scanner.nextLine();
@@ -60,7 +62,6 @@ public class Parc {
             dateFin = dateFormat.parse(dateFinString);
         } catch (Exception e) {
             System.out.println("La date saisie n'est pas au format JJ/MM/AAAA !");
-            System.exit(0);
         }
         Location location = new Location(dateDebut, dateFin);
 
@@ -76,7 +77,7 @@ public class Parc {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Quel kilometre affiche le compteur?");
         int kilometre = scanner.nextInt();
-        while (kilometre < this.catalogue[id-1].getKilometre()){
+        while (kilometre <= this.catalogue[id-1].getKilometre()){
             System.out.println("Le nombre entré doit être supérieur à l'ancienne valeur");
             System.out.println("Quel kilometre affiche le compteur?");
             kilometre = scanner.nextInt();
@@ -93,7 +94,7 @@ public class Parc {
             System.out.println("Scooter non existant");
         } else{
             System.out.println(this.catalogue[id-1].getId()+"-"+this.catalogue[id-1].getModel()+
-                    ": "+this.catalogue[id-1].getKilometre()+"km ," + this.catalogue[id-1].printDisponibilite());
+                    " : "+this.catalogue[id-1].getKilometre()+"km ," + this.catalogue[id-1].printDisponibilite());
             }
         }
     public void LouerScooter() throws IOException {
@@ -136,7 +137,29 @@ public class Parc {
         }
         this.save();
     }
+    public void saisirParcScooters() {
+        int nbTotalScooters = catalogue.length;
+        int nbScootersLocation = 0;
+        int nbScootersDisponibles = 0;
+        int totalKilometrage = 0;
 
+        System.out.println("|===========Etat Résumé==========|");
+        for(int i = 0; i<catalogue.length; i++){
+            totalKilometrage += catalogue[i].getKilometre();
+            if (catalogue[i].getDisponibilite()) {
+                nbScootersDisponibles++;
+                System.out.println("Scooter " + catalogue[i].getId() + " disponible");
+            } else {
+                nbScootersLocation++;
+                System.out.println("Scooter " + catalogue[i].getId() + " en location");
+            }
+        }
+        System.out.println("|================================|");
+        System.out.println("Nombre total de scooters: " + nbTotalScooters);
+        System.out.println("Nombre de scooters en location: " + nbScootersLocation);
+        System.out.println("Nombre de scooters disponibles: " + nbScootersDisponibles);
+        System.out.println("Kilométrage moyen: " + (double) totalKilometrage / nbTotalScooters);
+    }
     public void save() throws IOException {
         String path = "D:\\L2\\Poo\\Model\\model\\data.csv";
         String line = "";

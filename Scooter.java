@@ -48,6 +48,14 @@ public class Scooter {
             return "Indisponible à la location";
         }
     }
+    public String printEtat(){
+        if (this.getEtatVehicule()) {
+            return "Véhicule en bon état";
+        }
+        else {
+            return "Véhicule en panne";
+        }
+    }
     public void setFalse(){
         this.disponibilite = false;
     }

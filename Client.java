@@ -3,17 +3,22 @@ public class Client {
 
     private String nom;
     private String prenom;
+    private String numero;
     private Entreprise entreprise;
 
-    public Client( String c , String d){
+    public Client( String c , String d, String e){
 
         this.nom = c;
         this.prenom = d;
+        this.numero = e;
     }
     public String getNom(){
-        return nom;
+        return this.nom;
     }
     public String getPrenom(){
-        return prenom;
+        return this.prenom;
+    }
+    public String getNumero(){
+        return this.numero;
     }
 }

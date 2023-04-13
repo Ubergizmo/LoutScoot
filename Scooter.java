@@ -62,10 +62,24 @@ public class Scooter {
     public void setTrue(){
         this.disponibilite = true;
     }
+    public void setEtatF(){this.etatVehicule = false;}
+    public void setEtatT(){this.etatVehicule = true;}
     public boolean getEtatVehicule(){
         return etatVehicule;
     }
     public void setKilometre(int kilometre) {
         this.kilometre = kilometre;
+    }
+
+    public String printEtatParc() {
+        if(this.getDisponibilite()&&this.getEtatVehicule()){
+            return "Disponible à la location!";
+        } else if (this.getDisponibilite()&&!this.getEtatVehicule()) {
+            return "Véhicule en panne!";
+        }
+        else if (!this.getDisponibilite()&&this.getEtatVehicule()) {
+            return "Véhicule en location!";
+        }
+return null;
     }
 }

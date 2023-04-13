@@ -2,30 +2,43 @@ package Model.model;
 
 import java.io.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
 public class Main  {
 
     public static void main(String[] args) throws IOException {
-        String path = "D:\\L2\\Poo\\Model\\model\\data.csv";
+        String dataPath = "D:\\L2\\Poo\\Model\\model\\data.csv";
+        String calendrierPath = "D:\\L2\\Poo\\Model\\model\\calendrier.csv";
         Parc parc = new Parc();
-        String line = "";
+        Entreprise  entreprise= new Entreprise("LouScoot", "32 Chemins des Mimosas");
+        String dataLine = "";
+        String calendrierLine = "";
         try {
-            BufferedReader br = new BufferedReader(new FileReader(path));
+            BufferedReader dataReader = new BufferedReader(new FileReader(dataPath));
+            BufferedReader calendrierReader = new BufferedReader(new FileReader(calendrierPath));
             int i = 0;
-            while((line = br.readLine()) != null && i < 4) {
-                String[] values = line.split(",");
-                String model = values[0];
-                int rentPrice = Integer.parseInt(values[1]);
-                int kilometre = Integer.parseInt(values[2]);
-                boolean disponible = Boolean.parseBoolean(values[3]);
-                boolean etatVehicule = Boolean.parseBoolean(values[4]);
+            while((dataLine = dataReader.readLine()) != null && (calendrierLine = calendrierReader.readLine()) !=null && i < 4) {
+                String[] dataValues = dataLine.split(",");
+                String model = dataValues[0];
+                int rentPrice = Integer.parseInt(dataValues[1]);
+                int kilometre = Integer.parseInt(dataValues[2]);
+                boolean disponible = Boolean.parseBoolean(dataValues[3]);
+                boolean etatVehicule = Boolean.parseBoolean(dataValues[4]);
                 Scooter scooter = new Scooter(model, rentPrice, kilometre, disponible, etatVehicule);
                 parc.catalogue[i] = scooter;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String[] calendrierValues = calendrierLine.split(",");
+                LocalDate dateD = LocalDate.parse(calendrierValues[0], formatter);
+                LocalDate dateF = LocalDate.parse(calendrierValues[1], formatter);
+                Location location = new Location(dateD,dateF);
+                parc.calendrier[i] = location;
                 i++;
             }
-            System.out.println("Bienvenue sur LouScoot");
+            System.out.println("Bienvenue sur "+entreprise.nom);
+            System.out.println(entreprise.adresse);
         }catch (FileNotFoundException e){ System.out.println("Nous présentons actuellement un soucis.");}
         Scanner scanner = new Scanner(System.in);
         int choice = 0;

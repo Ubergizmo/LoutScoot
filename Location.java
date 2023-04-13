@@ -1,34 +1,26 @@
 package Model.model;
-import java.net.http.HttpClient;
+import java.time.LocalDate;
 import java.util.*;
 
 
 public class Location {
 
-    public Date dateDebut;
-    private Date dateFin;
+    public LocalDate dateDebut;
+    private LocalDate dateFin;
     private boolean dateLimite;
     private Client client;
 
 
 
-    public Location( Date c, Date d){
+    public Location(LocalDate c, LocalDate d){
         dateDebut = c ;
         dateFin = d;
 
     }
-    public Date getDateDebut(){
+    public LocalDate getDateDebut(){
         return dateDebut;
     }
-    public Date getDateFin(){
+    public LocalDate getDateFin(){
         return dateFin;
     }
-
-    public Date dateD(Date dateDebut){
-        return dateDebut;
-    }
-    public Date dateF(Date dateFin){
-        return dateFin;
-    }
-
 }

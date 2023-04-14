@@ -42,10 +42,10 @@ public class Scooter {
     }
     public String printDisponibilite(){
         if (this.getDisponibilite()) {
-            return "Disponible à la location";
+            return "Pas en Location";
         }
         else {
-            return "Indisponible à la location";
+            return "En Location";
         }
     }
     public String printEtat(){

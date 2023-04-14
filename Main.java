@@ -13,7 +13,8 @@ public class Main  {
         String dataPath = "D:\\L2\\Poo\\Model\\model\\data.csv";
         String calendrierPath = "D:\\L2\\Poo\\Model\\model\\calendrier.csv";
         Parc parc = new Parc();
-        Entreprise  entreprise= new Entreprise("LouScoot", "32 Chemins des Mimosas");
+        Entreprise entreprise = new Entreprise("LouScoot", "32 Chemins des Mimosas");
+        System.out.println(entreprise.printEnts(entreprise.nom, entreprise.adresse));
         String dataLine = "";
         String calendrierLine = "";
         try {
@@ -57,47 +58,20 @@ public class Main  {
             choice = scanner.nextInt();
 
             switch (choice) {
-                case 1:
-
-                    parc.LouerScooter();
-                    break;
-                case 2:
-                    parc.retourScooter();
-                    break;
-                case 3:
-                    parc.etatScooter();
-                    break;
-                case 4:
-                    parc.afficherParc();
-                    break;
-                case 5:
-                    parc.saisirParcScooters();
-                    break;
-                case 6:
+                case 1 -> parc.LouerScooter();
+                case 2 -> parc.retourScooter();
+                case 3 -> parc.etatScooter();
+                case 4 -> parc.afficherParc();
+                case 5 -> parc.saisirParcScooters();
+                case 6 -> {
                     isRunning = false;
                     parc.save();
                     System.out.println("Programme terminé.");
-                    break;
-                default:
-                    System.out.println("Option invalide.");
-                    break;
+                }
+                default -> System.out.println("Option invalide.");
             }
         }
 
         scanner.close();
     }
-
-    public static void retourScooter() {
-        // Logique pour retourner un scooter
-        System.out.println("Option 2 sélectionnée : retourner un scooter");
-    }
-
-
-    public static void saisirParcScooters() {
-        // Logique pour saisir le parc des scooters
-        System.out.println("Option 5 sélectionnée : saisir le parc des scooters");
-    }
-
-
-
 }

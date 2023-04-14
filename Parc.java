@@ -1,6 +1,5 @@
 package Model.model;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -64,8 +63,15 @@ public class Parc {
         System.out.println("Date de fin de réservation (format AAAA-MM-JJ) ?");
         String dateFinString = scanner.nextLine();
         LocalDate dateF = LocalDate.parse(dateFinString, formatter);
+        while (!this.calendrier[id-1].dateAfter(dateF, dateD)){
+            System.out.println("Date de début de réservation (format AAAA-MM-JJ) ?");
+            dateDebutString = scanner.nextLine();
+            dateD = LocalDate.parse(dateDebutString, formatter);
+            System.out.println("Date de fin de réservation (format AAAA-MM-JJ) ?");
+            dateFinString = scanner.nextLine();
+            dateF = LocalDate.parse(dateFinString, formatter);
+        }
         Location location = new Location(dateD, dateF);
-        System.out.println(location.getDateDebut()+"|--|"+location.getDateFin());
         System.out.println("Location créée!");
         this.calendrier[id-1] = location;
         catalogue[id-1].setFalse();
@@ -89,10 +95,7 @@ public class Parc {
         if(response==0){
             this.catalogue[id-1].setEtatF();
         }
-        /*else {
-            System.out.println("Répondez par 0 pour Non ou 1 pour Oui");
-            response = scanner.nextInt();
-        }*/
+        this.calendrier[id-1].remiseZero();
 
     }
     public void etatScooter(){
@@ -105,7 +108,7 @@ public class Parc {
             System.out.println("Scooter non existant");
         } else{
             System.out.println(this.catalogue[id-1].getId()+"-"+this.catalogue[id-1].getModel()+
-                    " : "+this.catalogue[id-1].getKilometre()+"km, " + this.catalogue[id-1].printEtatParc());
+                    " : "+this.catalogue[id-1].getKilometre()+"km, " + this.catalogue[id-1].printDisponibilite());
             }
         }
     public void LouerScooter() throws IOException {
@@ -118,7 +121,17 @@ public class Parc {
             System.out.println("Scooter non existant");
         } else{
             if (!catalogue[id-1].getDisponibilite()) {
-                System.out.println("Scooter actuellement en location");}
+                System.out.println("Scooter actuellement en location");
+                System.out.println("Scooter disponible à partir du "+ this.calendrier[id-1].getDateFin());
+                System.out.println("Voulez vous toujours le louer? 0-Non/1-Oui");
+                int choix = scanner.nextInt();
+                if(choix==1){
+                    reservation(id);
+                }
+                else {
+                    this.save();
+                }
+            }
             else if (!catalogue[id-1].getEtatVehicule()) {
                 System.out.println("Scooter indisponible à la location");
             } else {
@@ -197,6 +210,5 @@ public class Parc {
             System.out.println("Sauvegarde réussie");
         }catch (FileNotFoundException e){ System.out.println("Sauvegarde échoué.");}
     }
-
 
 }

@@ -27,7 +27,6 @@ public class Scooter {
     public int getId(){
         return id;
     }
-
     public String getModel(){
         return model;
     }
@@ -47,7 +46,7 @@ public class Scooter {
         else {
             return "En Location";
         }
-    }
+    }//Retourne un message en fonction de la disponibilité du scooter
     public String printEtat(){
         if (this.getEtatVehicule()) {
             return "Véhicule en bon état";
@@ -55,21 +54,21 @@ public class Scooter {
         else {
             return "Véhicule en panne";
         }
-    }
+    }//Retourne un message en fonction de l'état du scooter
     public void setFalse(){
         this.disponibilite = false;
-    }
+    }//Change l'etat de la variable disponibilité en false
     public void setTrue(){
         this.disponibilite = true;
-    }
-    public void setEtatF(){this.etatVehicule = false;}
-    public void setEtatT(){this.etatVehicule = true;}
+    }//Change l'etat de la variable disponibilité en true
+    public void setEtatF(){this.etatVehicule = false;}//Change l'etat de la variable étatVehicule en false
+    public void setEtatT(){this.etatVehicule = true;}//Change l'etat de la variable étatVehicule en true
     public boolean getEtatVehicule(){
         return etatVehicule;
     }
     public void setKilometre(int kilometre) {
         this.kilometre = kilometre;
-    }
+    }//Change l'etat de la variable kilometre avec une nouvelle valeur
 
     public String printEtatParc() {
         if(this.getDisponibilite()&&this.getEtatVehicule()){
@@ -81,5 +80,5 @@ public class Scooter {
             return "Véhicule en location!";
         }
 return null;
-    }
+    }//Retourne un message en fonction de l'état du scooter et de sa disponibilité
 }

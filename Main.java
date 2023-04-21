@@ -10,6 +10,7 @@ import java.util.*;
 public class Main  {
 
     public static void main(String[] args) throws IOException {
+        //dataPath et calendrierPath contiennent le repertoires de nos fichiers csv
         String dataPath = "D:\\L2\\Poo\\Model\\model\\data.csv";
         String calendrierPath = "D:\\L2\\Poo\\Model\\model\\calendrier.csv";
         Parc parc = new Parc();
@@ -18,9 +19,11 @@ public class Main  {
         String dataLine = "";
         String calendrierLine = "";
         try {
+            //BufferedReader est un type qui permet de lire notre ficher csv
             BufferedReader dataReader = new BufferedReader(new FileReader(dataPath));
             BufferedReader calendrierReader = new BufferedReader(new FileReader(calendrierPath));
             int i = 0;
+            //Cet boucle permet de lire les lignes une a une et de les enregistré dans des tableaux
             while((dataLine = dataReader.readLine()) != null && (calendrierLine = calendrierReader.readLine()) !=null && i < 4) {
                 String[] dataValues = dataLine.split(",");
                 String model = dataValues[0];

@@ -4,7 +4,6 @@ public class Client {
     private String nom;
     private String prenom;
     private String numero;
-    private Entreprise entreprise;
 
     public Client( String c , String d, String e){
 

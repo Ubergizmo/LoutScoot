@@ -6,6 +6,9 @@ import java.util.*;
 
 
 public class Parc {
+    //C'est un tableau contenant les informations des clients enregistrés
+    Vector<Registre> registres = new Vector<>();
+
     //C'est un tableau contenant les scooters et leur informations
     Scooter[] catalogue= new Scooter[4];
     //C'est un tableau contenant dans les index respectif des scooters leurs dates de reservation
@@ -50,7 +53,20 @@ public class Parc {
             numero = scanner.nextLine();
         }
         Client x = addClient(nom, prenom, numero);
-        
+        boolean clientExiste = false;
+
+        for (int i = 0; i < this.registres.size(); i++) {
+            if (this.registres.get(i).getClient() == x) {
+                this.registres.get(i).setN();
+                clientExiste = true;
+                break; // Sortir de la boucle si le client est trouvé
+            }
+        }
+        if (!clientExiste) {
+            Registre nouveau = new Registre(x, 0);
+
+            this.registres.add(nouveau);
+        }
         System.out.println("Client enregistré!");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         System.out.println("Date de réservation");
@@ -60,7 +76,7 @@ public class Parc {
         System.out.println("Date de fin de réservation (format AAAA-MM-JJ) ?");
         String dateFinString = scanner.nextLine();
         LocalDate dateF = LocalDate.parse(dateFinString, formatter);
-        while (!this.calendrier[id-1].dateAfter(dateF, dateD)){
+        while (this.calendrier[id-1].dateAfter(dateF, dateD)){
             System.out.println("Date de début de réservation (format AAAA-MM-JJ) ?");
             dateDebutString = scanner.nextLine();
             dateD = LocalDate.parse(dateDebutString, formatter);
@@ -204,9 +220,12 @@ public class Parc {
     public void save() throws IOException {
         String dataPath = "D:\\L2\\Poo\\Model\\model\\data.csv";
         String calendrierPath = "D:\\L2\\Poo\\Model\\model\\calendrier.csv";
+        String clientPath = "D:\\L2\\Poo\\Model\\model\\clients.csv";
         try {
             FileWriter dataWriter = new FileWriter(dataPath);
             BufferedWriter calendrierWriter = new BufferedWriter(new FileWriter(calendrierPath));
+            BufferedWriter clientWriter = new BufferedWriter(new FileWriter(clientPath));
+
             for (int i = 0; i < this.catalogue.length; i++) {
                 dataWriter.write(this.catalogue[i].getModel() + ",");
                 dataWriter.write(this.catalogue[i].getRentPrice() + ",");
@@ -214,15 +233,27 @@ public class Parc {
                 dataWriter.write(this.catalogue[i].getDisponibilite() + ",");
                 dataWriter.write(this.catalogue[i].getEtatVehicule() + "\n");
             }
-            for (int i = 0;i<this.calendrier.length;i++) {
+
+            for (int i = 0; i < this.calendrier.length; i++) {
                 calendrierWriter.write(this.calendrier[i].getDateDebut().toString()+",");
                 calendrierWriter.write(this.calendrier[i].getDateFin().toString()+ "\n");
             }
-            calendrierWriter.close();
 
+            for (int i = 0; i < this.registres.size(); i++) {
+                clientWriter.write(this.registres.get(i).getNom()+",");
+                clientWriter.write(this.registres.get(i).getPrenom()+",");
+                clientWriter.write(this.registres.get(i).getNumero()+",");
+                clientWriter.write(this.registres.get(i).getN()+"\n");
+            }
+
+            calendrierWriter.close();
             dataWriter.close();
+            clientWriter.close();
 
             System.out.println("Sauvegarde réussie");
-        }catch (FileNotFoundException e){ System.out.println("Sauvegarde échoué.");}
+        } catch (FileNotFoundException e) {
+            System.out.println("Sauvegarde échouée.");
+        }
     }
+
 }

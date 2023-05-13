@@ -13,15 +13,18 @@ public class Main  {
         //dataPath et calendrierPath contiennent le repertoires de nos fichiers csv
         String dataPath = "D:\\L2\\Poo\\Model\\model\\data.csv";
         String calendrierPath = "D:\\L2\\Poo\\Model\\model\\calendrier.csv";
+        String clientPath = "D:\\L2\\Poo\\Model\\model\\clients.csv";
         Parc parc = new Parc();
         Entreprise entreprise = new Entreprise("LouScoot", "32 Chemins des Mimosas");
         System.out.println(entreprise.printEnts(entreprise.nom, entreprise.adresse));
         String dataLine = "";
         String calendrierLine = "";
+        String clientLine = "";
         try {
             //BufferedReader est un type qui permet de lire notre ficher csv
             BufferedReader dataReader = new BufferedReader(new FileReader(dataPath));
             BufferedReader calendrierReader = new BufferedReader(new FileReader(calendrierPath));
+            BufferedReader clientReader = new BufferedReader(new FileReader(clientPath));
             int i = 0;
             //Cet boucle permet de lire les lignes une a une et de les enregistré dans des tableaux
             while((dataLine = dataReader.readLine()) != null && (calendrierLine = calendrierReader.readLine()) !=null && i < 4) {
@@ -40,6 +43,16 @@ public class Main  {
                 Location location = new Location(dateD,dateF);
                 parc.calendrier[i] = location;
                 i++;
+            }
+            while((clientLine = clientReader.readLine()) != null) {
+                String[] dataValues = clientLine.split(",");
+                    String nom = dataValues[0];
+                    String prenom = dataValues[1];
+                    String numero = dataValues[2];
+                    Client client = new Client(nom, prenom, numero);
+                    int n = Integer.parseInt(dataValues[3]);
+                    Registre registre = new Registre(client, n);
+                    parc.registres.add(registre) ;
             }
             System.out.println("Bienvenue sur "+entreprise.nom);
             System.out.println(entreprise.adresse);
